@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const blogModel = require('./model/blogModel');
 const blogTypeModel = require('./model/blogTypeModel');
 
@@ -22,6 +23,11 @@ module.exports.findBlogByPageDao = async function (pageInfo) {
                     }
                 }
             ],
+            where: {
+                title: {
+                    [Op.like]: `%${pageInfo.title}%`
+                }
+            },
             offset: (pageInfo.page * 1 - 1) * pageInfo.limit,
             limit: pageInfo.limit * 1
         });
@@ -34,6 +40,11 @@ module.exports.findBlogByPageDao = async function (pageInfo) {
                     as: 'category'
                 }
             ],
+            where: {
+                title: {
+                    [Op.like]: `%${pageInfo.title}%`
+                }
+            },
             offset: (pageInfo.page * 1 - 1) * pageInfo.limit,
             limit: pageInfo.limit * 1
         });
