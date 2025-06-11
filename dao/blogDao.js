@@ -11,6 +11,12 @@ module.exports.addBlogDao = async function (newBlogInfo) {
 // 根据分页信息来查询博客
 module.exports.findBlogByPageDao = async function (pageInfo) {
     // { page: '1', limit: '5', categoryid: '2' }
+    const where = {};
+    if (pageInfo.title) {
+        where.title = {
+            [Op.like]: `%${pageInfo.title}%`
+        };
+    }
     if (pageInfo.categoryid && pageInfo.categoryid !== '-1') {
         // 根据分类信息来进行分页查询
         return await blogModel.findAndCountAll({
@@ -23,11 +29,7 @@ module.exports.findBlogByPageDao = async function (pageInfo) {
                     }
                 }
             ],
-            where: {
-                title: {
-                    [Op.like]: `%${pageInfo.title}%`
-                }
-            },
+            where,
             offset: (pageInfo.page * 1 - 1) * pageInfo.limit,
             limit: pageInfo.limit * 1
         });
@@ -40,11 +42,7 @@ module.exports.findBlogByPageDao = async function (pageInfo) {
                     as: 'category'
                 }
             ],
-            where: {
-                title: {
-                    [Op.like]: `%${pageInfo.title}%`
-                }
-            },
+            where,
             offset: (pageInfo.page * 1 - 1) * pageInfo.limit,
             limit: pageInfo.limit * 1
         });
