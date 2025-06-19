@@ -132,7 +132,6 @@ module.exports.updateBlogService = async function (id, newBlogInfo) {
     if (newBlogInfo.htmlContent) {
         // 进入此 if，说明文章的正文内容有所改变，需要重新处理 TOC 目录
         newBlogInfo = handleTOC(newBlogInfo);
-
         // 接下来，我们将处理好的TOC格式转为字符串
         newBlogInfo.toc = JSON.stringify(newBlogInfo.toc);
     }

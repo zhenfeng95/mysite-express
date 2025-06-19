@@ -65,7 +65,18 @@ module.exports.uploading = multer({
 
 // 处理 TOC
 module.exports.handleTOC = function (info) {
-    let result = toc(info.markdownContent).json;
+    let tocJson = toc(info.markdownContent).json;
+    // 统计每一级标题的数量
+    const levelCountMap = {};
+
+    const result = tocJson.map(item => {
+        const lvl = item.lvl;
+        levelCountMap[lvl] = (levelCountMap[lvl] || 0) + 1;
+        return {
+            ...item,
+            slug: `heading-${lvl}-${levelCountMap[lvl]}`
+        };
+    });
     // 经过上面 toc 方法的处理，就将整个 markdown 里面的标题全部提取出来了
     // 形成一个数组，数组里面是一个个对象，每个对象记录了标题的名称以及等级，如下：
 
@@ -186,6 +197,5 @@ module.exports.handleTOC = function (info) {
             }
         }
     }
-
     return info;
 };
