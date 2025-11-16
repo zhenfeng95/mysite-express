@@ -57,6 +57,7 @@ app.use(
     }).unless({
         // 需要排除的 token 验证的路由
         path: [
+            { url: '/api/admin/wxlogin', methods: ['POST'] },
             { url: '/api/admin/login', methods: ['POST'] },
             { url: '/api/res/captcha', methods: ['GET'] },
             { url: '/api/banner', methods: ['GET'] },

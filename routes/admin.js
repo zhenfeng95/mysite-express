@@ -5,6 +5,8 @@ var { formatResponse, analysisToken } = require('../utils/tool');
 const { loginService, updateAdminService } = require('../service/adminService');
 const { ValidationError } = require('../utils/errors');
 
+const { wxGetUserInfo } = require('../common/WxUtils');
+
 router.post('/login', async function (req, res, next) {
     // 首先应该有一个验证码的验证
     if (req.body.captcha.toLowerCase() !== req.session.captcha.toLowerCase()) {
@@ -40,6 +42,21 @@ router.get('/whoami', async function (req, res, next) {
 // 修改用户信息
 router.put('/', async function (req, res, next) {
     res.send(await updateAdminService(req.body));
+});
+
+// 微信登录
+router.post('/wxlogin', async function (req, res, next) {
+    console.log(req.body);
+    const { user, code } = req.body;
+    const result = await wxGetUserInfo(user, code);
+    console.log(result);
+
+    res.send(formatResponse(0, '', result));
+    //     {
+    //   session_key: 'JpzOkI/otV1XXCz0HnqAPA==',
+    //   expires_in: 7200,
+    //   openid: 'o9_T90LriBX3KmE-nZiN2sPnncZE'
+    // }
 });
 
 module.exports = router;
