@@ -14,8 +14,6 @@ const { ForbiddenError, ServiceError, UnknownError } = require('./utils/errors')
 require('dotenv').config();
 require('express-async-errors');
 
-console.log(1234567890);
-
 // 引入数据库连接
 require('./dao/db');
 
