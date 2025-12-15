@@ -14,6 +14,8 @@ const { ForbiddenError, ServiceError, UnknownError } = require('./utils/errors')
 require('dotenv').config();
 require('express-async-errors');
 
+console.log(1234);
+
 // 引入数据库连接
 require('./dao/db');
 
@@ -38,7 +40,7 @@ app.use(
     session({
         secret: process.env.SESSION_SECRET,
         resave: true,
-        saveUninitialized: true
+        saveUninitialized: true,
     })
 );
 
@@ -53,7 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(
     expressJWT({
         secret: md5(process.env.JWT_SECRET), // 我们所设置的秘钥
-        algorithms: ['HS256'] // 新版本的 expressJWT 必须要求指定算法
+        algorithms: ['HS256'], // 新版本的 expressJWT 必须要求指定算法
     }).unless({
         // 需要排除的 token 验证的路由
         path: [
@@ -69,8 +71,8 @@ app.use(
             { url: '/api/comment', methods: ['GET', 'POST'] },
             { url: '/api/about', methods: ['GET'] },
             { url: '/api/setting', methods: ['GET'] },
-            { url: '/api/upload/list', methods: ['GET'] }
-        ]
+            { url: '/api/upload/list', methods: ['GET'] },
+        ],
     })
 );
 
@@ -112,6 +114,11 @@ app.use(function (err, req, res, next) {
     } else {
         res.send(new UnknownError().toResponseJSON());
     }
+});
+
+const port = 5008;
+app.listen(port, () => {
+    console.log(`server listen on ${port}`);
 });
 
 module.exports = app;
