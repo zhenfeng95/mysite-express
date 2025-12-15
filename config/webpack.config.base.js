@@ -8,7 +8,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpackconfig = {
     target: 'node',
     entry: {
-        server: path.join(utils.APP_PATH, 'index.js'),
+        server: path.join(utils.APP_PATH, 'app.js'),
     },
     resolve: {
         ...utils.getWebpackResolveConfig(),

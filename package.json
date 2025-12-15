@@ -8,6 +8,11 @@
         "build": "cross-env NODE_ENV=production webpack --config ./config/webpack.config.prod.js",
         "build:dev": "cross-env NODE_ENV=development webpack --config ./config/webpack.config.prod.js"
     },
+    "nodemonConfig": {
+        "ignore": [
+            "node_modules"
+        ]
+    },
     "dependencies": {
         "axios": "^1.11.0",
         "cookie-parser": "~1.4.3",

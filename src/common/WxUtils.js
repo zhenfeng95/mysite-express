@@ -1,10 +1,10 @@
 const axios = require('axios');
 const crypto = require('crypto');
-const { AppID, AppSecret } = require('../config');
+const { AppID, AppSecret } = require('../../config');
 const WXBizDataCrypt = require('./WXBizDataCrypt');
 
 const instance = axios.create({
-    timeout: 30000
+    timeout: 30000,
 });
 
 // 获取session_key，openid等
@@ -33,7 +33,7 @@ module.exports.wxGetUserInfo = async (user, code) => {
             return Promise.reject(
                 new Error({
                     code: 500,
-                    msg: '签名校验失败，请检查 '
+                    msg: '签名校验失败，请检查 ',
                 })
             );
         }

@@ -14,7 +14,7 @@ const { ForbiddenError, ServiceError, UnknownError } = require('./utils/errors')
 require('dotenv').config();
 require('express-async-errors');
 
-console.log(1234);
+console.log(1234567890);
 
 // 引入数据库连接
 require('./dao/db');
@@ -116,7 +116,7 @@ app.use(function (err, req, res, next) {
     }
 });
 
-const port = 5008;
+const port = 3001;
 app.listen(port, () => {
     console.log(`server listen on ${port}`);
 });
