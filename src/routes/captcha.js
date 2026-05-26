@@ -8,7 +8,7 @@ const { formatResponse } = require('../utils/tool');
 router.get('/', async function (req, res, next) {
     const captcha = await getCaptchaService();
     req.session.captcha = captcha.text;
-    res.send(formatResponse(0, '', captcha.image));
+    res.send(formatResponse(0, '', { captchaBase64: captcha.image }));
 });
 
 module.exports = router;
