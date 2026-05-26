@@ -13,7 +13,7 @@ const { ForbiddenError, ServiceError, UnknownError } = require('./utils/errors')
 // 默认读取项目根目录下的 .env 环境变量文件
 require('dotenv').config();
 require('express-async-errors');
-console.log(123);
+
 // 引入数据库连接
 require('./dao/db');
 
