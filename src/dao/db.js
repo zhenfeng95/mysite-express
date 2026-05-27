@@ -10,6 +10,8 @@ const messageModel = require('./model/messageModel');
 const aboutModel = require('./model/aboutModel');
 const settingModel = require('./model/settingModel');
 const uploadModel = require('./model/uploadModel');
+const menuModel = require('./model/menuModel');
+const menuSeedData = require('./menuSeedData');
 
 const md5 = require('md5');
 
@@ -97,6 +99,12 @@ const md5 = require('md5');
             favicon: 'http://mdrs.yuanjin.tech/Fs4CDlC6mwe_WXLMIiXcmSJLHO4f'
         });
         console.log('初始化全局设置数据...');
+    }
+
+    const menuCount = await menuModel.count();
+    if (!menuCount) {
+        await menuModel.bulkCreate(menuSeedData);
+        console.log('初始化菜单数据...');
     }
 
     console.log('数据库初始化完成');

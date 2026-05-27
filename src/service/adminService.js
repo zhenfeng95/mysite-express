@@ -62,3 +62,8 @@ module.exports.updateAdminService = async function (accountInfo) {
         throw new ValidationError('旧密码不正确');
     }
 };
+
+// 退出登录
+module.exports.logoutService = function () {
+    return formatResponse(0, '退出成功', null);
+};

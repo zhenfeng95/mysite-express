@@ -30,6 +30,7 @@ var messageRouter = require('./routes/message');
 var aboutRouter = require('./routes/about');
 var settingRouter = require('./routes/setting');
 var captchaRouter = require('./routes/captcha');
+var menuRouter = require('./routes/menu');
 
 // 创建服务器实例
 var app = express();
@@ -59,6 +60,7 @@ app.use(
         path: [
             { url: '/api/admin/wxlogin', methods: ['POST'] },
             { url: '/api/admin/login', methods: ['POST'] },
+            { url: '/api/admin/logout', methods: ['DELETE'] },
             { url: '/api/res/captcha', methods: ['GET'] },
             { url: '/api/banner', methods: ['GET'] },
             { url: '/api/blogtype', methods: ['GET'] },
@@ -88,6 +90,7 @@ app.use('/api/comment', messageRouter);
 app.use('/api/about', aboutRouter);
 app.use('/api/setting', settingRouter);
 app.use('/api/res/captcha', captchaRouter);
+app.use('/api/menu', menuRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
